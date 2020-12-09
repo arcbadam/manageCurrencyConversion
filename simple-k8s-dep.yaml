@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: managecurrency
+  labels:
+    app: managecurrency
+    version: v1
+  name: managecurrency
+spec:
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1 #specifies the max num of pods that can be created over the desired number of pods
+      maxUnavailable: 25% #specifies the max num of pods that can be unavailable during the update process
+  replicas: 1
+  selector:
+    matchLabels:
+      app: managecurrency
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: managecurrency
+        version: v1
+    spec:
+      containers:
+        - 
+          name: managecurrency
+          image: arcbadam/managecurrencyarc1k8:latest
+          imagePullPolicy: Always
